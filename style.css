@@ -1,0 +1,22 @@
+.container {
+    text-align: center;
+}
+
+#title {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.canvas {
+padding-left: 0;
+padding-right: 0;
+margin-left: auto;
+margin-right: auto;
+margin-top: 25px;
+display: block;
+border-bottom: solid black;
+}
+
+#reloadButton {
+    margin-top: 10px;
+}
