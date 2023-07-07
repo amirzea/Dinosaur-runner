@@ -8,7 +8,8 @@ let bottomLine = 180;
 let dinoX = TILE, dinoY = bottomLine, obstacleY = bottomLine;
 let obstacleX = [800, 1100, 1300];
 let jumps = 5;
-let yAxe = [bottomLine - 10, bottomLine - 20, bottomLine - 30, bottomLine - 20, bottomLine - 10];
+const JUMPS = 5;
+let yAxe = [bottomLine - TILE_V, bottomLine - TILE, bottomLine - TILE - TILE_V, bottomLine - TILE, bottomLine - TILE_V];
 let boardUpdateInterval;
 dinoY = 180
 let spacePress = 0;
@@ -24,8 +25,8 @@ function keyIsPressed(e) {
         ++spacePress;
         boardUpdateInterval = setInterval(updateBoard, 100);
         document.getElementById("press").innerHTML = "Press arrow up to jump";
-    } else if (e.code == "ArrowUp" && jumps >= 5) {
-        yAxe = [bottomLine - 10, bottomLine - 20, bottomLine - 30, bottomLine - 20, bottomLine - 10];
+    } else if (e.code == "ArrowUp" && jumps >= JUMPS) {
+        yAxe = [bottomLine - TILE_V, bottomLine - TILE, bottomLine - TILE - TILE_V, bottomLine - TILE, bottomLine - TILE_V];
         jumps = 0;
         dinoY = yAxe[jumps];
     }
@@ -35,11 +36,10 @@ function updateBoard() {
     context.clearRect(0, 0, canvas.width, canvas.width);
     placeObstacles();
     checkCollision();
-    if (jumps < 5) {
+    if (jumps < JUMPS) {
         context.fillStyle = "green";
         context.fillRect(dinoX, yAxe[jumps], TILE_V, TILE);
         ++jumps;
-        console.log(yAxe);
     } else {
         context.fillStyle = "green";
         context.fillRect(dinoX, bottomLine, TILE_V, TILE);
@@ -62,9 +62,9 @@ function placeObstacles() {
 }
 
 function checkCollision() {
-    if(jumps >= 5 && obstacleX.includes(dinoX) && (obstacleY == dinoY || obstacleY - 10 == dinoY)) {
+    if(jumps >= JUMPS && obstacleX.includes(dinoX) && (obstacleY == dinoY || obstacleY - TILE_V == dinoY)) {
         gameOver();
-    } else if (jumps < 5 && obstacleX.includes(dinoX) && yAxe[jumps] >= 170) {
+    } else if (jumps < JUMPS && obstacleX.includes(dinoX) && yAxe[jumps] >= bottomLine - TILE_V) {
         gameOver();
     }
 }
